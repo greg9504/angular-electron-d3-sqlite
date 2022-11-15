@@ -2,11 +2,13 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
+import log from 'electron-log';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
+  log.info('starting main...');
 function createWindow(): BrowserWindow {
 
   const electronScreen = screen;
@@ -26,12 +28,16 @@ function createWindow(): BrowserWindow {
   });
 
   if (serve) {
+    console.log('In main.ts serve is true');
+    log.info('In main process serve is true');
     const debug = require('electron-debug');
     debug();
 
     require('electron-reloader')(module);
     win.loadURL('http://localhost:4200');
   } else {
+    log.info('In main process serve is false');
+    console.log('In main.ts serve is false');
     // Path when running electron executable
     let pathIndex = './index.html';
 

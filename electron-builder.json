@@ -3,6 +3,10 @@
   "directories": {
     "output": "release/"
   },
+  "build": {
+    "buildDependenciesFromSource": true
+  },
+  
   "files": [
     "**/*",
     "!**/*.ts",

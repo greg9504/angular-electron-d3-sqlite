@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { ipcRenderer, webFrame } from 'electron';
 import * as childProcess from 'child_process';
 import * as fs from 'fs';
+import Database from 'better-sqlite3';
+import log from 'electron-log';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,8 @@ export class ElectronService {
   webFrame: typeof webFrame;
   childProcess: typeof childProcess;
   fs: typeof fs;
+  public database: typeof Database;
+  public elog: typeof log;
 
   constructor() {
     // Conditional imports
@@ -23,6 +27,8 @@ export class ElectronService {
 
       this.childProcess = window.require('child_process');
       this.fs = window.require('fs');
+      this.database = window.require('better-sqlite3');
+      this.elog = window.require('electron-log');
 
       // Notes :
       // * A NodeJS's dependency imported with 'window.require' MUST BE present in `dependencies` of both `app/package.json`
